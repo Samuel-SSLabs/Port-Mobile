@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b111e" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>SSLabs | PortMobile</title>
+  <meta name="description" content="Buscador e catálogo integrado da SSLabs de ports nativos, source ports e recompilações para celular (Android e iOS), com releases e dados técnicos.">
+
+  <link rel="icon" type="image/svg+xml" href="./assets/Port Mobile logo oficial.svg">
+  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
+  <link rel="apple-touch-icon" href="./assets/favicon.png">
+
+  <link rel="preload" href="./assets/fonts/Inter_18pt-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="./assets/fonts/Inter_18pt-SemiBold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="./assets/fonts/JetBrainsMono-Regular.ttf" as="font" type="font/ttf" crossorigin>
+
+  <link rel="stylesheet" href="./styles.css?v=1.019">
+
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('port_mobile_theme');
+        if (savedTheme) {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="top-gradient-stripe"></div>
+
+  <header class="site-header">
+    <div class="header-container">
+
+      <div class="header-brand-wrap">
+        <a href="./index.html" class="header-brand" id="brandLink" title="PortMobile — SSLabs">
+          <img src="./assets/logo-sslabs.png" alt="SSLabs Logo" class="brand-logo-img logo-light-mode" width="130" height="48">
+          <img src="./assets/logo-sslabs-white.png" alt="SSLabs Logo" class="brand-logo-img logo-dark-mode" width="130" height="48">
+          <div class="brand-title-group">
+            <span class="brand-title-main">Port<span class="brand-title-highlight">Mobile</span></span>
+            <span class="brand-title-sub">Mobile Ports Hub</span>
+          </div>
+        </a>
+
+        <!-- Indicador de Pessoas Online Mobile (Ao lado direito da logo) -->
+        <div class="live-presence-pill mobile-only" id="livePresencePillMobile" title="Usuários navegando no catálogo em tempo real">
+          <span class="live-pulse-dot" aria-hidden="true"></span>
+          <svg class="online-user-svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span class="live-presence-count" id="livePresenceCount">--</span>
+        </div>
+      </div>
+
+      <div class="header-search-wrapper" id="headerSearchWrapper">
+        <svg class="icon-svg search-icon-inside" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input-box"
+          placeholder="Buscar port, jogo mobile (Android, iOS), console ou autor..."
+          autocomplete="off"
+          spellcheck="false"
+          inputmode="search"
+        >
+
+        <div class="search-kbd-shortcut" id="searchKbd" title="Pressione / para buscar">/</div>
+
+        <button type="button" class="search-clear-btn" id="searchClearBtn" title="Limpar pesquisa" aria-label="Limpar pesquisa">
+          <svg class="icon-svg" style="width: 14px; height: 14px;" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="search-drawer" id="searchDrawer" aria-label="Resultados Rápidos">
+          <div class="search-drawer-header">
+            <span class="search-drawer-title">Sugestões de Ports</span>
+            <span class="search-drawer-count" id="searchDrawerCount">0 encontrados</span>
+          </div>
+          <div class="search-drawer-list" id="searchDrawerList">
+
+          </div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+
+        <div class="lang-dropdown-wrapper" id="langDropdownWrapper">
+          <button type="button" class="lang-selector-btn" id="langSelectorBtn" title="Alterar idioma" aria-label="Idioma" aria-expanded="false">
+            <span class="lang-flag" id="currentLangFlag"><svg class="svg-flag" viewBox="0 0 640 480" width="20" height="14" aria-hidden="true"><path fill="#009b3a" d="M0 0h640v480H0z"/><path fill="#fedf00" d="M320 40l280 200-280 200L40 240z"/><circle fill="#002776" cx="320" cy="240" r="120"/><path fill="#fff" d="M200 240c0-66.27 53.73-120 120-120 23.3 0 45.1 6.64 63.6 18.1-13.6-6.6-28.8-10.3-44.8-10.3-55.2 0-100 44.8-100 100 0 4.1.2 8.1.8 12.2H200z"/></svg></span>
+            <span class="lang-code" id="currentLangCode">PT</span>
+            <svg class="lang-arrow-icon" viewBox="0 0 24 24" width="12" height="12">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="lang-dropdown-menu" id="langDropdownMenu" role="menu">
+            <button type="button" class="lang-option-btn active" data-lang="pt" role="menuitem">
+              <span class="lang-option-flag"><svg class="svg-flag" viewBox="0 0 640 480" width="20" height="14" aria-hidden="true"><path fill="#009b3a" d="M0 0h640v480H0z"/><path fill="#fedf00" d="M320 40l280 200-280 200L40 240z"/><circle fill="#002776" cx="320" cy="240" r="120"/><path fill="#fff" d="M200 240c0-66.27 53.73-120 120-120 23.3 0 45.1 6.64 63.6 18.1-13.6-6.6-28.8-10.3-44.8-10.3-55.2 0-100 44.8-100 100 0 4.1.2 8.1.8 12.2H200z"/></svg></span>
+              <span class="lang-option-name">Português (BR)</span>
+            </button>
+            <button type="button" class="lang-option-btn" data-lang="en" role="menuitem">
+              <span class="lang-option-flag"><svg class="svg-flag" viewBox="0 0 640 480" width="20" height="14" aria-hidden="true"><g fill-rule="evenodd"><path fill="#bd3d44" d="M0 0h640v480H0z"/><path stroke="#fff" stroke-width="37" d="M0 55.5h640M0 129.5h640M0 203.5h640M0 277.5h640M0 351.5h640M0 425.5h640"/><path fill="#192f5d" d="M0 0h260v259H0z"/><circle fill="#fff" cx="35" cy="35" r="8"/><circle fill="#fff" cx="95" cy="35" r="8"/><circle fill="#fff" cx="155" cy="35" r="8"/><circle fill="#fff" cx="215" cy="35" r="8"/><circle fill="#fff" cx="65" cy="70" r="8"/><circle fill="#fff" cx="125" cy="70" r="8"/><circle fill="#fff" cx="185" cy="70" r="8"/><circle fill="#fff" cx="35" cy="105" r="8"/><circle fill="#fff" cx="95" cy="105" r="8"/><circle fill="#fff" cx="155" cy="105" r="8"/><circle fill="#fff" cx="215" cy="105" r="8"/><circle fill="#fff" cx="65" cy="140" r="8"/><circle fill="#fff" cx="125" cy="140" r="8"/><circle fill="#fff" cx="185" cy="140" r="8"/><circle fill="#fff" cx="35" cy="175" r="8"/><circle fill="#fff" cx="95" cy="175" r="8"/><circle fill="#fff" cx="155" cy="175" r="8"/><circle fill="#fff" cx="215" cy="175" r="8"/><circle fill="#fff" cx="65" cy="210" r="8"/><circle fill="#fff" cx="125" cy="210" r="8"/><circle fill="#fff" cx="185" cy="210" r="8"/></g></svg></span>
+              <span class="lang-option-name">English (US)</span>
+            </button>
+            <button type="button" class="lang-option-btn" data-lang="es" role="menuitem">
+              <span class="lang-option-flag"><svg class="svg-flag" viewBox="0 0 640 480" width="20" height="14" aria-hidden="true"><path fill="#c60b1e" d="M0 0h640v480H0z"/><path fill="#ffc400" d="M0 120h640v240H0z"/><rect fill="#c60b1e" x="140" y="200" width="40" height="60" rx="6"/><circle fill="#c60b1e" cx="160" cy="180" r="10"/></svg></span>
+              <span class="lang-option-name">Español</span>
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="action-icon-btn" id="themeToggleBtn" title="Alternar tema claro/escuro" aria-label="Alternar tema">
+          <svg class="icon-svg theme-icon-sun" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-svg theme-icon-moon" viewBox="0 0 24 24" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <a href="https://github.com/Samuel-SSLabs/Port-Mobile" target="_blank" rel="noopener noreferrer" class="action-icon-btn github-btn" title="Repositório Oficial do PortMobile no GitHub" aria-label="GitHub">
+          <svg class="icon-svg" viewBox="0 0 24 24">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+
+    <section class="hero-section">
+      <h1 class="hero-title" data-i18n="hero.title">Ports Nativos para Celular</h1>
+      <p class="hero-desc" data-i18n="hero.desc">
+        Catálogo unificado de ports nativos, source ports e recompilações para dispositivos móveis (Android e iOS).
+      </p>
+
+      <div class="hero-stats-row">
+        <div class="stat-item">
+          <span class="stat-number" id="statTotalPorts">0</span>
+          <span class="stat-label" data-i18n="hero.statActive">Ports Ativos</span>
+        </div>
+        <div class="stat-separator"></div>
+        <div class="stat-item">
+          <span class="stat-number" id="statTotalConsoles">0</span>
+          <span class="stat-label" data-i18n="hero.statConsoles">Plataformas</span>
+        </div>
+        <div class="stat-separator"></div>
+        <div class="stat-item">
+          <span class="stat-number" id="statApiStatus" style="color: #10b981;">Online</span>
+          <span class="stat-label" data-i18n="hero.statScanStatus">Status</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="filter-bar-section">
+      <!-- Linha Superior: Filtro da Plataforma Mobile e Ordenação -->
+      <div class="filter-top-row">
+        <div class="filter-group filter-group-mobile">
+          <div class="filter-group-header">
+            <span class="filter-group-title">
+              <svg class="icon-svg filter-group-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+              </svg>
+              <span data-i18n="filters.mobileTitle">Plataforma Mobile:</span>
+            </span>
+          </div>
+          <div class="filter-pills-wrap" id="mobileFilterPills">
+            <button type="button" class="filter-pill filter-pill-mobile active" data-mobile="todos">
+              <span data-i18n="filters.mobileTodos">Todos</span>
+              <span class="filter-pill-count" id="countPill_mobile_todos">0</span>
+            </button>
+            <button type="button" class="filter-pill filter-pill-mobile" data-mobile="Android">
+              <span class="pill-dot android-dot"></span>
+              <span data-i18n="filters.Android">Android</span>
+              <span class="filter-pill-count" id="countPill_mobile_Android">0</span>
+            </button>
+            <button type="button" class="filter-pill filter-pill-mobile" data-mobile="iOS">
+              <span class="pill-dot ios-dot"></span>
+              <span data-i18n="filters.iOS">iOS</span>
+              <span class="filter-pill-count" id="countPill_mobile_iOS">0</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="filter-sort-wrap">
+          <label for="sortSelect" class="sort-label" data-i18n="sort.label">Ordenar:</label>
+          <select id="sortSelect" class="sort-select">
+            <option value="recentes" selected data-i18n="sort.recentes">Releases Mais Recentes</option>
+            <option value="estrelas" data-i18n="sort.estrelas">Mais Estrelas (Stars)</option>
+            <option value="nome" data-i18n="sort.nome">Nome (A - Z)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Linha Inferior: Console Originário -->
+      <div class="filter-group filter-group-console">
+        <div class="filter-group-header">
+          <span class="filter-group-title">
+            <svg class="icon-svg filter-group-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+              <path d="M6 12h4m-2-2v4m10-2h.01m-3 0h.01"></path>
+            </svg>
+            <span data-i18n="filters.consoleTitle">Console de Origem:</span>
+          </span>
+        </div>
+        <div class="filter-pills-wrap" id="consoleFilterPills">
+          <button type="button" class="filter-pill filter-pill-console active" data-console="todos">
+            <span data-i18n="filters.todos">Todos</span>
+            <span class="filter-pill-count" id="countPill_todos">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="PS5">
+            <span class="pill-dot ps5-dot"></span>
+            <span data-i18n="filters.PS5">PlayStation 5</span>
+            <span class="filter-pill-count" id="countPill_PS5">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="PS4">
+            <span class="pill-dot ps4-dot"></span>
+            <span data-i18n="filters.PS4">PlayStation 4</span>
+            <span class="filter-pill-count" id="countPill_PS4">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="PS3">
+            <span class="pill-dot ps3-dot"></span>
+            <span data-i18n="filters.PS3">PlayStation 3</span>
+            <span class="filter-pill-count" id="countPill_PS3">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="PS2">
+            <span class="pill-dot ps2-dot"></span>
+            <span data-i18n="filters.PS2">PlayStation 2</span>
+            <span class="filter-pill-count" id="countPill_PS2">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="PS1">
+            <span class="pill-dot ps1-dot"></span>
+            <span data-i18n="filters.PS1">PlayStation 1</span>
+            <span class="filter-pill-count" id="countPill_PS1">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="XONE">
+            <span class="pill-dot xone-dot"></span>
+            <span data-i18n="filters.XONE">Xbox One / Series</span>
+            <span class="filter-pill-count" id="countPill_XONE">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="XBOX360">
+            <span class="pill-dot xbox360-dot"></span>
+            <span data-i18n="filters.XBOX360">Xbox 360</span>
+            <span class="filter-pill-count" id="countPill_XBOX360">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="XBOX">
+            <span class="pill-dot xbox-dot"></span>
+            <span data-i18n="filters.XBOX">Xbox Clássico</span>
+            <span class="filter-pill-count" id="countPill_XBOX">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="Switch">
+            <span class="pill-dot switch-dot"></span>
+            <span data-i18n="filters.Switch">Nintendo Switch</span>
+            <span class="filter-pill-count" id="countPill_Switch">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="N64">
+            <span class="pill-dot n64-dot"></span>
+            <span data-i18n="filters.N64">Nintendo 64</span>
+            <span class="filter-pill-count" id="countPill_N64">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="GC_WII">
+            <span class="pill-dot gc-dot"></span>
+            <span data-i18n="filters.GC_WII">GameCube & Wii</span>
+            <span class="filter-pill-count" id="countPill_GC_WII">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="Retro">
+            <span class="pill-dot outros-dot"></span>
+            <span data-i18n="filters.Retro">Portáteis & Retro</span>
+            <span class="filter-pill-count" id="countPill_Retro">0</span>
+          </button>
+          <button type="button" class="filter-pill filter-pill-console" data-console="PC">
+            <span class="pill-dot pc-dot"></span>
+            <span data-i18n="filters.PC">PC / Source Ports</span>
+            <span class="filter-pill-count" id="countPill_PC">0</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="search-status-bar" id="searchStatusBar" style="display: none;">
+      <div class="search-status-text">
+        Resultados para a busca: <strong id="searchStatusQuery">""</strong>
+        <span class="search-status-count" id="searchStatusCount">(0 encontrados)</span>
+      </div>
+      <button type="button" class="btn-clear-search-bar" id="btnResetSearch">
+        Limpar busca
+      </button>
+    </div>
+
+    <section class="ports-grid-section">
+      <div class="ports-grid" id="portsGrid">
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand-info">
+        <div class="footer-logo-row">
+          <img src="./assets/logo-sslabs.png" alt="SSLabs Logo" class="footer-logo logo-light-mode" width="110" height="38">
+          <img src="./assets/logo-sslabs-white.png" alt="SSLabs Logo" class="footer-logo logo-dark-mode" width="110" height="38">
+          <span class="footer-title">PortMobile</span>
+        </div>
+        <p class="footer-text" data-i18n="footer.brandDesc">
+          Hub oficial da SSLabs para localização, catalogação e acompanhamento em tempo real de ports nativos, source ports e recompilações para Android e iOS.
+        </p>
+        <p class="footer-disclaimer" data-i18n-html="footer.disclaimer">
+          ⚠️ <strong>Aviso legal:</strong> Os ports nativos exigem que o usuário possua uma cópia legalmente adquirida do jogo original (bring your own game dump). Este site não armazena, hospeda nem compartilha arquivos executáveis protegidos por direitos autorais, ROMs ou ISOs.
+        </p>
+      </div>
+
+<div class="footer-bottom">
+        <div class="footer-bottom-brand">
+          <span data-i18n="footer.rights">© 2026 SSLabs EcoSystem</span>
+        </div>
+
+        <div class="footer-bottom-actions">
+
+          <div class="lang-dropdown-wrapper footer-lang-wrapper" id="langDropdownWrapperFooter">
+            <button type="button" class="lang-selector-btn footer-lang-btn" id="langSelectorBtnFooter" title="Alterar idioma" aria-label="Idioma" aria-expanded="false">
+              <span class="lang-flag" id="currentLangFlagFooter"><svg class="svg-flag" viewBox="0 0 640 480" width="20" height="14" aria-hidden="true"><path fill="#009b3a" d="M0 0h640v480H0z"/><path fill="#fedf00" d="M320 40l280 200-280 200L40 240z"/><circle fill="#002776" cx="320" cy="240" r="120"/><path fill="#fff" d="M200 240c0-66.27 53.73-120 120-120 23.3 0 45.1 6.64 63.6 18.1-13.6-6.6-28.8-10.3-44.8-10.3-55.2 0-100 44.8-100 100 0 4.1.2 8.1.8 12.2H200z"/></svg></span>
+              <span class="lang-code" id="currentLangCodeFooter">PT</span>
+              <svg class="lang-arrow-icon" viewBox="0 0 24 24" width="12" height="12">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="lang-dropdown-menu" id="langDropdownMenuFooter" role="menu">
+              <button type="button" class="lang-option-btn active" data-lang="pt" role="menuitem">
+                <span class="lang-option-flag"><svg class="svg-flag" viewBox="0 0 640 480" width="20" height="14" aria-hidden="true"><path fill="#009b3a" d="M0 0h640v480H0z"/><path fill="#fedf00" d="M320 40l280 200-280 200L40 240z"/><circle fill="#002776" cx="320" cy="240" r="120"/><path fill="#fff" d="M200 240c0-66.27 53.73-120 120-120 23.3 0 45.1 6.64 63.6 18.1-13.6-6.6-28.8-10.3-44.8-10.3-55.2 0-100 44.8-100 100 0 4.1.2 8.1.8 12.2H200z"/></svg></span>
+                <span class="lang-option-name">Português (BR)</span>
+              </button>
+              <button type="button" class="lang-option-btn" data-lang="en" role="menuitem">
+                <span class="lang-option-flag"><svg class="svg-flag" viewBox="0 0 640 480" width="20" height="14" aria-hidden="true"><g fill-rule="evenodd"><path fill="#bd3d44" d="M0 0h640v480H0z"/><path stroke="#fff" stroke-width="37" d="M0 55.5h640M0 129.5h640M0 203.5h640M0 277.5h640M0 351.5h640M0 425.5h640"/><path fill="#192f5d" d="M0 0h260v259H0z"/><circle fill="#fff" cx="35" cy="35" r="8"/><circle fill="#fff" cx="95" cy="35" r="8"/><circle fill="#fff" cx="155" cy="35" r="8"/><circle fill="#fff" cx="215" cy="35" r="8"/><circle fill="#fff" cx="65" cy="70" r="8"/><circle fill="#fff" cx="125" cy="70" r="8"/><circle fill="#fff" cx="185" cy="70" r="8"/><circle fill="#fff" cx="35" cy="105" r="8"/><circle fill="#fff" cx="95" cy="105" r="8"/><circle fill="#fff" cx="155" cy="105" r="8"/><circle fill="#fff" cx="215" cy="105" r="8"/><circle fill="#fff" cx="65" cy="140" r="8"/><circle fill="#fff" cx="125" cy="140" r="8"/><circle fill="#fff" cx="185" cy="140" r="8"/><circle fill="#fff" cx="35" cy="175" r="8"/><circle fill="#fff" cx="95" cy="175" r="8"/><circle fill="#fff" cx="155" cy="175" r="8"/><circle fill="#fff" cx="215" cy="175" r="8"/><circle fill="#fff" cx="65" cy="210" r="8"/><circle fill="#fff" cx="125" cy="210" r="8"/><circle fill="#fff" cx="185" cy="210" r="8"/></g></svg></span>
+                <span class="lang-option-name">English (US)</span>
+              </button>
+              <button type="button" class="lang-option-btn" data-lang="es" role="menuitem">
+                <span class="lang-option-flag"><svg class="svg-flag" viewBox="0 0 640 480" width="20" height="14" aria-hidden="true"><path fill="#c60b1e" d="M0 0h640v480H0z"/><path fill="#ffc400" d="M0 120h640v240H0z"/><rect fill="#c60b1e" x="140" y="200" width="40" height="60" rx="6"/><circle fill="#c60b1e" cx="160" cy="180" r="10"/></svg></span>
+                <span class="lang-option-name">Español</span>
+              </button>
+            </div>
+          </div>
+
+          <button type="button" class="footer-donate-btn" id="openSupportModalBtn" title="Apoiar o projeto PortMobile" aria-label="Apoiar o projeto PortMobile">
+            <svg class="donate-heart-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span data-i18n="footer.supportBtn">Apoie o Projeto</span>
+          </button>
+
+        <button type="button" class="footer-theme-toggle-btn" id="themeToggleBtnFooter" title="Alternar tema claro/escuro" aria-label="Alternar tema">
+          <svg class="icon-svg theme-icon-sun" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-svg theme-icon-moon" viewBox="0 0 24 24" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <span class="footer-theme-label">Modo Claro</span>
+        </button>
+      </div>
+
+      <div class="footer-links">
+          <a href="https://github.com/Samuel-SSLabs" target="_blank" rel="noopener noreferrer">SSLabs GitHub</a>
+          <span>•</span>
+          <a href="https://github.com/Samuel-SSLabs/Port-Mobile" target="_blank" rel="noopener noreferrer" data-i18n="footer.repoLink">Repositório do Projeto</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="floating-actions-wrap">
+
+    <button type="button" class="floating-back-to-top-btn" id="backToTopBtn" title="Voltar ao topo da página" aria-label="Voltar ao topo">
+      <svg class="back-to-top-icon" viewBox="0 0 24 24" width="20" height="20">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+
+    <!-- Widget Flutuante de Pessoas Online (Exclusivo Desktop) -->
+    <div class="floating-online-badge desktop-only" id="floatingOnlineBadge" title="Usuários navegando no catálogo em tempo real">
+      <span class="live-pulse-dot" aria-hidden="true"></span>
+      <svg class="online-user-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <span class="live-presence-count" id="floatingPresenceCount">--</span>
+      <span class="live-presence-label" data-i18n="header.liveUsers">Online</span>
+    </div>
+
+    <button type="button" class="floating-suggest-btn" id="openSuggestBtn" title="Sugerir um novo port ou atualização" aria-label="Sugerir um novo port ou atualização">
+      <svg class="suggest-outline-icon" viewBox="0 0 24 24" width="20" height="20">
+        <path d="M9 18h6"></path>
+        <path d="M10 22h4"></path>
+        <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path>
+      </svg>
+      <span class="suggest-btn-text" data-i18n="floating.suggestPort">Sugerir Port</span>
+    </button>
+  </div>
+
+  <div class="suggest-modal-overlay" id="suggestModalOverlay" aria-hidden="true">
+    <div class="suggest-modal-box" role="dialog" aria-labelledby="suggestModalTitle">
+      <div class="suggest-modal-header">
+        <div class="suggest-modal-title-group">
+          <div class="suggest-modal-icon-badge">
+            <svg class="suggest-outline-icon" style="width: 20px; height: 20px;" viewBox="0 0 24 24">
+              <path d="M9 18h6"></path>
+              <path d="M10 22h4"></path>
+              <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="suggest-modal-title" id="suggestModalTitle">Sugerir Novo Port / Atualização</h3>
+            <p class="suggest-modal-subtitle">Conhece um port nativo ou recompilação que não está no site? Envie para indexarmos!</p>
+          </div>
+        </div>
+        <button type="button" class="suggest-modal-close" id="closeSuggestBtn" aria-label="Fechar modal">
+          <svg class="icon-svg" style="width: 18px; height: 18px;" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <form id="suggestForm" class="suggest-form">
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="suggestGameName" class="form-label">Nome do Jogo / Port <span class="required">*</span></label>
+            <input type="text" id="suggestGameName" class="form-input" placeholder="Ex: Demon's Souls, Jak II, Burnout 3..." required>
+          </div>
+          <div class="form-group w-auto">
+            <label for="suggestPlatform" class="form-label">Plataforma / Destino <span class="required">*</span></label>
+            <select id="suggestPlatform" class="form-select" required>
+              <option value="Android">Android (APK / Wrapper)</option>
+              <option value="iOS">iOS (IPA / Sideload)</option>
+              <option value="Multi">Multiplataforma (Android & iOS)</option>
+              <option value="PS2">PlayStation 2</option>
+              <option value="PSP">PSP / PS Vita</option>
+              <option value="PS1">PlayStation 1</option>
+              <option value="N64">Nintendo 64</option>
+              <option value="Switch">Nintendo Switch</option>
+              <option value="GameCube">GameCube / Wii</option>
+              <option value="PC">PC & Source Ports</option>
+              <option value="Retro">Portáteis & Retro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="suggestRepoUrl" class="form-label">Link do Repositório (GitHub / GitLab / Website)</label>
+          <input type="url" id="suggestRepoUrl" class="form-input" placeholder="https://github.com/autor/nome-do-port">
+        </div>
+
+        <div class="form-group">
+          <label for="suggestDetails" class="form-label">Informações Adicionais / Observações</label>
+          <textarea id="suggestDetails" class="form-textarea" rows="3" placeholder="Estado do port (jogável, em desenvolvimento), instruções de compilação ou requisitos..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="suggestContact" class="form-label">Seu Nome, Usuário do Discord ou E-mail (Opcional)</label>
+          <input type="text" id="suggestContact" class="form-input" placeholder="Ex: @seu_usuario ou seu_email@exemplo.com">
+        </div>
+
+        <div class="suggest-actions-bar">
+          <button type="submit" class="btn-submit-suggest" id="btnSubmitSuggest">
+            <svg class="icon-svg" style="width: 16px; height: 16px; margin-right: 6px;" viewBox="0 0 24 24">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <span>Enviar Sugestão</span>
+          </button>
+        </div>
+
+        <div class="suggest-status-msg" id="suggestStatusMsg" style="display: none;"></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="support-modal-overlay" id="supportModalOverlay" aria-hidden="true">
+    <div class="support-modal-box" role="dialog" aria-labelledby="supportModalTitle">
+      <div class="support-modal-header">
+        <div class="support-modal-title-group">
+          <div class="support-modal-icon-badge">
+            <svg class="donate-heart-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="support-modal-title" id="supportModalTitle">Apoie o PortMobile</h3>
+            <p class="support-modal-subtitle">Ajude a manter nossos rastreadores e catálogo 100% livres e gratuitos!</p>
+          </div>
+        </div>
+        <button type="button" class="support-modal-close" id="closeSupportModalBtn" aria-label="Fechar modal">
+          <svg class="icon-svg" style="width: 18px; height: 18px;" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="support-modal-body">
+
+        <div class="support-modal-card pix-card">
+          <div class="support-card-header">
+            <div class="support-method-badge pix-badge">
+              <img src="./assets/pix.png" alt="PIX" class="pix-logo-icon" width="20" height="20">
+              <span>PIX Direto (Brasil)</span>
+            </div>
+            <span class="support-tag-instant">Instantâneo • Sem Taxas</span>
+          </div>
+
+          <p class="support-card-text">
+            Copie a chave aleatória ou aponte a câmera no app do seu banco:
+          </p>
+
+          <div class="pix-key-box">
+            <code class="pix-key-code" id="pixKeyCode">ace85127-b293-4bb2-bd30-b1c10b47e07c</code>
+            <button type="button" class="btn-copy-pix" id="btnCopyPix" title="Copiar chave PIX" aria-label="Copiar chave PIX">
+              <svg class="icon-svg icon-copy" viewBox="0 0 24 24" width="14" height="14">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span class="btn-copy-text">Copiar Chave</span>
+            </button>
+          </div>
+
+          <div class="pix-actions-row">
+            <button type="button" class="btn-toggle-qr" id="btnTogglePixQr">
+              <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              <span id="qrToggleText">Mostrar QR Code</span>
+            </button>
+            <span class="pix-copy-feedback" id="pixFeedback"></span>
+          </div>
+
+          <div class="pix-qr-container" id="pixQrContainer" style="display: none;">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=ace85127-b293-4bb2-bd30-b1c10b47e07c" alt="QR Code PIX" class="pix-qr-image" loading="lazy">
+            <span class="pix-qr-caption">Aponte a câmera no app do seu banco</span>
+          </div>
+        </div>
+
+        <div class="support-modal-card kofi-card">
+          <div class="support-card-header">
+            <div class="support-method-badge kofi-badge">
+              <svg viewBox="0 0 24 24" class="kofi-logo-icon" width="16" height="16" fill="currentColor">
+                <path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09s-2.615-2.5-3.87-3.909c-1.467-1.646-.867-4.103 1.054-4.599 1.761-.454 3.09 1.135 3.09 1.135s1.399-1.579 3.125-1.125c1.921.505 2.502 2.955 1.03 4.589zm7.042-.647c-.389 2.052-2.022 2.37-3.48 2.416v-5.11c1.472.049 3.869.642 3.48 2.694z"/>
+              </svg>
+              <span>Ko-fi (Internacional & Cartão)</span>
+            </div>
+            <span class="support-tag-global">Global • PayPal & Cartão</span>
+          </div>
+
+          <p class="support-card-text">
+            Contribuição online em Dólar, Euro ou Real via cartão de crédito ou PayPal:
+          </p>
+
+          <div class="kofi-action-wrap">
+            <a href="https://ko-fi.com/sslabs" target="_blank" rel="noopener noreferrer" class="btn-kofi-support" id="kofiLinkBtn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09s-2.615-2.5-3.87-3.909c-1.467-1.646-.867-4.103 1.054-4.599 1.761-.454 3.09 1.135 3.09 1.135s1.399-1.579 3.125-1.125c1.921.505 2.502 2.955 1.03 4.589zm7.042-.647c-.389 2.052-2.022 2.37-3.48 2.416v-5.11c1.472.049 3.869.642 3.48 2.694z"/>
+              </svg>
+              <span>Apoiar no Ko-fi (ko-fi.com/sslabs)</span>
+              <svg class="icon-svg" style="width: 14px; height: 14px; margin-left: 2px;" viewBox="0 0 24 24">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="support-modal-card binance-card">
+          <div class="support-card-header">
+            <div class="support-method-badge binance-badge">
+              <svg viewBox="0 0 24 24" class="binance-logo-icon" width="16" height="16" fill="currentColor">
+                <path d="M16.624 13.92l2.715 2.715-7.34 7.34-7.339-7.34 2.715-2.716 4.624 4.624 4.626-4.623zm0-3.84l4.624-4.624 2.715 2.715-7.34 7.34-2.715-2.715 2.716-2.716zm-9.248 0l2.716 2.716-2.716 2.715-7.339-7.34 2.715-2.715 4.624 4.624zm4.624-9.248l7.34 7.34-2.715 2.715-4.625-4.624-4.624 4.624-2.715-2.715 7.339-7.34zm0 6.533l2.716 2.715-2.716 2.716-2.715-2.716 2.715-2.715z"/>
+              </svg>
+              <span>Binance • Criptomoedas</span>
+            </div>
+            <span class="support-tag-crypto">Cripto • USDT, BTC, ETH</span>
+          </div>
+
+          <p class="support-card-text">
+            Envie via Binance Pay com taxa zero usando o UID ou crie sua conta pelo link:
+          </p>
+
+          <div class="binance-key-box">
+            <div class="binance-uid-label">
+              <span class="binance-uid-tag">Pay ID / UID:</span>
+              <code class="binance-uid-code" id="binanceUidCode">1058817517</code>
+            </div>
+            <button type="button" class="btn-copy-binance" id="btnCopyBinanceUid" title="Copiar UID Binance Pay" aria-label="Copiar UID Binance Pay">
+              <svg class="icon-svg icon-copy" viewBox="0 0 24 24" width="14" height="14">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span class="btn-copy-binance-text">Copiar ID</span>
+            </button>
+          </div>
+
+          <div class="binance-action-wrap">
+            <a href="https://account.binance.com/register?ref=1058817517&registerChannel=user_center" target="_blank" rel="noopener noreferrer" class="btn-binance-support" id="binanceLinkBtn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M16.624 13.92l2.715 2.715-7.34 7.34-7.339-7.34 2.715-2.716 4.624 4.624 4.626-4.623zm0-3.84l4.624-4.624 2.715 2.715-7.34 7.34-2.715-2.715 2.716-2.716zm-9.248 0l2.716 2.716-2.716 2.715-7.339-7.34 2.715-2.715 4.624 4.624zm4.624-9.248l7.34 7.34-2.715 2.715-4.625-4.624-4.624 4.624-2.715-2.715 7.339-7.34zm0 6.533l2.716 2.715-2.716 2.716-2.715-2.716 2.715-2.715z"/>
+              </svg>
+              <span>Acessar via Binance (UID 1058817517)</span>
+              <svg class="icon-svg" style="width: 14px; height: 14px; margin-left: 2px;" viewBox="0 0 24 24">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL DE REPORTE DE REPOSITÓRIO (DISCORD WEBHOOK) ── -->
+  <div class="suggest-modal-overlay" id="reportModalOverlay" aria-hidden="true">
+    <div class="suggest-modal-box" role="dialog" aria-labelledby="reportModalTitle">
+      <div class="suggest-modal-header">
+        <div class="suggest-modal-title-group">
+          <div class="suggest-modal-icon-badge" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.1);">
+            <svg class="suggest-outline-icon" style="width: 20px; height: 20px;" viewBox="0 0 24 24">
+              <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+              <line x1="4" y1="22" x2="4" y2="15"></line>
+            </svg>
+          </div>
+          <div>
+            <h3 class="suggest-modal-title" id="reportModalTitle" data-i18n="reportModal.title">Reportar Repositório</h3>
+            <p class="suggest-modal-subtitle" data-i18n="reportModal.subtitle">Encontrou um link quebrado, informação incorreta ou problema neste port? Avise nossa equipe.</p>
+          </div>
+        </div>
+        <button type="button" class="suggest-modal-close" id="closeReportBtn" aria-label="Fechar modal" onclick="fecharModalReporte()">
+          <svg class="icon-svg" style="width: 18px; height: 18px;" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="report-target-box">
+        <span class="report-target-badge" id="reportTargetBadge">PORT</span>
+        <span class="report-target-name" id="reportTargetName">Carregando repositório...</span>
+      </div>
+
+      <form id="reportForm" class="suggest-form" onsubmit="enviarReporteDiscord(event)">
+        <input type="hidden" id="reportPortId" value="">
+        <input type="hidden" id="reportPortRepo" value="">
+
+        <div class="form-group">
+          <label for="reportReason" class="form-label">
+            <span data-i18n="reportModal.labelReason">Motivo do Reporte</span> <span class="required">*</span>
+          </label>
+          <select id="reportReason" class="form-select" required>
+            <option value="" disabled selected data-i18n="reportModal.selectPlaceholder">Selecione o motivo...</option>
+            <option value="Link quebrado ou repositório indisponível" data-i18n="reportModal.reasonBroken">Link quebrado ou repositório indisponível</option>
+            <option value="Informações incorretas (Nome, plataforma ou serial)" data-i18n="reportModal.reasonInfo">Informações incorretas (Nome, plataforma ou serial)</option>
+            <option value="Capa incorreta, ausente ou de baixa resolução" data-i18n="reportModal.reasonCover">Capa incorreta, ausente ou de baixa resolução</option>
+            <option value="Port não compila ou instruções desatualizadas" data-i18n="reportModal.reasonBuild">Port não compila ou instruções desatualizadas</option>
+            <option value="Repositório arquivado, abandonado ou duplicado" data-i18n="reportModal.reasonArchived">Repositório arquivado, abandonado ou duplicado</option>
+            <option value="Outro motivo ou problema" data-i18n="reportModal.reasonOther">Outro motivo ou problema</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="reportDetails" class="form-label">
+            <span data-i18n="reportModal.labelDetails">Detalhes do problema</span> <span class="required">*</span>
+          </label>
+          <textarea id="reportDetails" class="form-textarea" rows="4" placeholder="Descreva o que está incorreto ou o problema encontrado para que possamos verificar e corrigir..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="reportContact" class="form-label" data-i18n="reportModal.labelContact">Seu Contato (Discord ou e-mail - opcional)</label>
+          <input type="text" id="reportContact" class="form-input" placeholder="Ex: usuario#0000 ou seu@email.com">
+        </div>
+
+        <div class="suggest-status-msg" id="reportStatusMsg" style="display: none;"></div>
+
+        <div class="report-modal-actions">
+          <button type="button" class="btn-modal-cancel" onclick="fecharModalReporte()" data-i18n="reportModal.btnCancel">Cancelar</button>
+          <button type="submit" class="btn-modal-report-submit" id="btnReportSubmit">
+            <svg class="icon-svg" style="width: 15px; height: 15px;" viewBox="0 0 24 24">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <span id="btnReportSubmitText" data-i18n="reportModal.btnSubmit">Enviar Reporte</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="./locales.js?v=1.001"></script>
+  <script src="./app.js?v=1.001"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# SSLabs PortMobile - Robots Exclusion Standard
+User-agent: *
+Allow: /
+
+# Sitemap oficial
+Sitemap: https://portmobile.pages.dev/sitemap.xml

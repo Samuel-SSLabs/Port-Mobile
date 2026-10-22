@@ -1,0 +1,65 @@
+name: Auto Discover Ports
+
+on:
+  schedule:
+    # Executa diariamente às 03:00 de Brasília (06:00 UTC)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      action_mode:
+        description: 'Modo de Operação'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - 'all'
+          - 'sync_meta_only'
+          - 'discover_and_code'
+          - 'enrich_codes_only'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Executar Varredura e Atualizacao de Metadados
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ inputs.action_mode }}" = "sync_meta_only" ]; then
+            node scripts/discover-ports.js --sync-meta
+          elif [ "${{ inputs.action_mode }}" = "enrich_codes_only" ]; then
+            node scripts/discover-ports.js --enrich-codes
+          elif [ "${{ inputs.action_mode }}" = "discover_and_code" ]; then
+            node scripts/discover-ports.js --append
+            node scripts/discover-ports.js --enrich-codes
+          else
+            node scripts/discover-ports.js --sync-meta
+            node scripts/discover-ports.js --append
+            node scripts/discover-ports.js --enrich-codes
+          fi
+
+      - name: Criar Pull Request com Atualizacoes
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'feat: sincronizacao de metadados, estrelas e novos ports nativos'
+          title: 'Atualização Diária de Ports e Metadados • SSLabs Scanner'
+          body: |
+            Varredura e sincronização automática diária:
+            - Atualização de estrelas (stars) e versões de releases no `PORTS_DATABASE`.
+            - Descoberta e catalogação de novos ports nativos de jogos mobile (Android e iOS).
+            - Enriquecimento de códigos de identificação oficial.
+          branch: auto-discover-ports
+          base: main

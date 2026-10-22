@@ -1,0 +1,68 @@
+name: Processar Fila de Ports (Cloud Manager)
+
+on:
+  workflow_dispatch:
+    inputs:
+      repos_batch:
+        description: 'Lista de repositórios para processar (JSON ou separados por vírgula)'
+        required: true
+        type: string
+      uploader:
+        description: 'Nome do usuário que enviou pelo PortManager'
+        required: false
+        default: 'Samuel'
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  process_queue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
+      - name: Processar Fila de Ports e Gerar Capas (WebP + AVIF)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node scripts/adicionar-port.js --batch '${{ inputs.repos_batch }}'
+
+      - name: Commit e Push das Modificações
+        run: |
+          UPLOADER="${{ inputs.uploader }}"
+          if [ "$UPLOADER" = "Samuel" ] || [ "$UPLOADER" = "samuel" ]; then
+            git config user.name "Samuel"
+            git config user.email "78222767+Samuel-SSLabs@users.noreply.github.com"
+          elif [ "$UPLOADER" = "Thiago" ] || [ "$UPLOADER" = "thiago" ]; then
+            git config user.name "Thiago"
+            git config user.email "thiago@sslabs.internal"
+          elif [ "$UPLOADER" = "Miguel" ] || [ "$UPLOADER" = "miguel" ]; then
+            git config user.name "Miguel"
+            git config user.email "miguel@sslabs.internal"
+          else
+            git config user.name "${UPLOADER:-Samuel}"
+            git config user.email "78222767+Samuel-SSLabs@users.noreply.github.com"
+          fi
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git add app.js assets/covers/ locales.js
+            git commit -m "feat(auto): novos ports adicionados via PortManager por ${UPLOADER:-Samuel}"
+            git push origin main
+            echo "Ports adicionados e publicados na main com sucesso por ${UPLOADER:-Samuel}!"
+          else
+            echo "Nenhuma modificação gerada."
+          fi

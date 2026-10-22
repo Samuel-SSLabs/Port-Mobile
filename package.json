@@ -1,0 +1,17 @@
+{
+  "name": "port-mobile",
+  "version": "1.019.0",
+  "description": "SSLabs EcoSystem • PortMobile — Mobile Ports Hub (Android & iOS)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Samuel-SSLabs/Port-Mobile.git"
+  },
+  "homepage": "https://portmobile.pages.dev",
+  "scripts": {
+    "gerenciador": "node scripts/gerenciador-server.js",
+    "sync-meta": "node scripts/discover-ports.js --sync-meta",
+    "discover": "node scripts/discover-ports.js --append",
+    "enrich": "node scripts/discover-ports.js --enrich-codes",
+    "covers": "node scripts/otimizar-capas.js"
+  }
+}

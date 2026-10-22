@@ -1,0 +1,162 @@
+﻿[
+  {
+    "id": "blackdefinitivehdpc-pc",
+    "nome": "BLACK",
+    "console": "XBOX",
+    "consoleNome": "Xbox Clássico",
+    "codigoJogo": "45410083",
+    "status": "Totalmente Jogável",
+    "statusTipo": "jogavel",
+    "repo": "euspring1/BlackDefinitiveHDPC",
+    "repoUrl": "https://github.com/euspring1/BlackDefinitiveHDPC",
+    "descricao": "Unofficial native Windows port of BLACK (Xbox, NTSC-U): up to 240 fps, HD resolution and textures, extended draw distance, full keyboard/mouse or controller support, English and Brazilian Portuguese, all set in the game's own menus. Runs your own copy of the game; no game data included.",
+    "termoBuscaCapa": "BLACK",
+    "capaManual": null,
+    "dataAtualizacao": "2026-10-21T06:33:15Z",
+    "stars": 13,
+    "versaoPadrao": "V1.3",
+    "tags": [
+      "XBOX",
+      "AutoDiscover",
+      "Binário Disponível",
+      "C++"
+    ]
+  },
+  {
+    "id": "marvel-nemesis-recomp-pc",
+    "nome": "Marvel Nemesis",
+    "console": "XBOX",
+    "consoleNome": "Xbox Clássico",
+    "codigoJogo": "4541038A",
+    "status": "Em Desenvolvimento Ativo",
+    "statusTipo": "wip",
+    "repo": "15Cyber/marvel-nemesis-recomp",
+    "repoUrl": "https://github.com/15Cyber/marvel-nemesis-recomp",
+    "descricao": "Unofficial native Windows port of Marvel Nemesis: Rise of the Imperfects via Xbox static recompilation. Graphics options, native PC Settings, local Versus and experimental mods. Built with XboxXBERecomp. Source-only alpha; bring your own game.",
+    "termoBuscaCapa": "Marvel Nemesis",
+    "capaManual": null,
+    "dataAtualizacao": "2026-10-21T09:09:22Z",
+    "stars": 11,
+    "versaoPadrao": "v0.1.0-alpha.3",
+    "tags": [
+      "XBOX",
+      "AutoDiscover",
+      "Binário Disponível",
+      "C++"
+    ]
+  },
+  {
+    "id": "eternaldarknessrecomp-pc",
+    "nome": "EternalDarknessRecomp",
+    "console": "GC",
+    "consoleNome": "GameCube",
+    "codigoJogo": "GEDP01",
+    "status": "Totalmente Jogável",
+    "statusTipo": "jogavel",
+    "repo": "griches/EternalDarknessRecomp",
+    "repoUrl": "https://github.com/griches/EternalDarknessRecomp",
+    "descricao": "Eternal Darkness: Sanity's Requiem static recompilation (DolRecomp + GXRuntime) for Mac, Windows and Linux / Steam Deck. Bring your own disc.",
+    "termoBuscaCapa": "EternalDarknessRecomp",
+    "capaManual": null,
+    "dataAtualizacao": "2026-10-19T23:23:14Z",
+    "stars": 76,
+    "versaoPadrao": "v0.9.5",
+    "tags": [
+      "GC",
+      "AutoDiscover",
+      "Binário Disponível",
+      "C"
+    ]
+  },
+  {
+    "id": "luigis-mansion-recompiled-pc",
+    "nome": "Luigis Mansion",
+    "console": "GC",
+    "consoleNome": "GameCube",
+    "codigoJogo": "GLME01",
+    "status": "Totalmente Jogável",
+    "statusTipo": "jogavel",
+    "repo": "rob646464/luigis-mansion-recompiled",
+    "repoUrl": "https://github.com/rob646464/luigis-mansion-recompiled",
+    "descricao": "Luigi's Mansion Recompiled: a PC port of Luigi's Mansion (GameCube) built from your own disc",
+    "termoBuscaCapa": "Luigis Mansion",
+    "capaManual": null,
+    "dataAtualizacao": "2026-10-21T01:35:54Z",
+    "stars": 156,
+    "versaoPadrao": "v1.1",
+    "tags": [
+      "GC",
+      "AutoDiscover",
+      "Binário Disponível",
+      "C++"
+    ]
+  },
+  {
+    "id": "god-of-war-3-remastered-pc-port-ps4-arabic-translation-pc",
+    "nome": "God Of War 3 Remastered PS4 Arabic Translation",
+    "console": "PS4",
+    "consoleNome": "PlayStation 4",
+    "codigoJogo": "PS4-GODOFWAR3R",
+    "status": "Totalmente Jogável",
+    "statusTipo": "jogavel",
+    "repo": "Mohamed-Moslem-Allouch/God-of-War-3-Remastered-Pc-Port-PS4-Arabic-Translation",
+    "repoUrl": "https://github.com/Mohamed-Moslem-Allouch/God-of-War-3-Remastered-Pc-Port-PS4-Arabic-Translation",
+    "descricao": "تعريب كامل للعبة god of war 3 ps4",
+    "termoBuscaCapa": "God Of War 3 Remastered PS4 Arabic Translation",
+    "capaManual": null,
+    "dataAtualizacao": "2026-10-15T01:15:21Z",
+    "stars": 10,
+    "versaoPadrao": "1.0",
+    "tags": [
+      "PS4",
+      "AutoDiscover",
+      "Binário Disponível"
+    ]
+  },
+  {
+    "id": "wwe-allstars-recomp-pc",
+    "nome": "WWE AllStars",
+    "console": "XBOX360",
+    "consoleNome": "Xbox 360",
+    "codigoJogo": "XBOX360-WWEALLSTAR",
+    "status": "Totalmente Jogável",
+    "statusTipo": "jogavel",
+    "repo": "shaneomac1337/WWE-AllStars-Recomp",
+    "repoUrl": "https://github.com/shaneomac1337/WWE-AllStars-Recomp",
+    "descricao": "Unofficial Windows version of WWE All Stars (Xbox 360), recompiled with ReXGlue. Bring your own disc image.",
+    "termoBuscaCapa": "WWE AllStars",
+    "capaManual": null,
+    "dataAtualizacao": "2026-10-17T12:57:27Z",
+    "stars": 39,
+    "versaoPadrao": "v1.4.0",
+    "tags": [
+      "XBOX360",
+      "AutoDiscover",
+      "Binário Disponível",
+      "C++"
+    ]
+  },
+  {
+    "id": "prototype-pc-slop-pc",
+    "nome": "PROTOTYPE And PROTOTYPE 2",
+    "console": "PS4",
+    "consoleNome": "PlayStation 4",
+    "codigoJogo": "CUSA06545",
+    "status": "Totalmente Jogável",
+    "statusTipo": "jogavel",
+    "repo": "petrishevgeorgii-debug/prototype-pc-slop",
+    "repoUrl": "https://github.com/petrishevgeorgii-debug/prototype-pc-slop",
+    "descricao": "Native PC port of PROTOTYPE and PROTOTYPE 2 (experimental) from the PS4 PROTOTYPE BIOHAZARD BUNDLE: keyboard and mouse, FSR 3.1/4, 60 FPS, higher resolutions, in-game menu. No game files included.",
+    "termoBuscaCapa": "PROTOTYPE And PROTOTYPE 2",
+    "capaManual": null,
+    "dataAtualizacao": "2026-10-20T08:42:45Z",
+    "stars": 11,
+    "versaoPadrao": "v0.7.0",
+    "tags": [
+      "PS4",
+      "AutoDiscover",
+      "Binário Disponível",
+      "C++"
+    ]
+  }
+]

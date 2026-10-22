@@ -1,0 +1,44 @@
+name: Sincronizacao de Metadados (4x ao dia)
+
+on:
+  schedule:
+    # Executa 4 vezes ao dia (a cada 6 horas: 00:00, 06:00, 12:00 e 18:00 UTC)
+    # Equivalente a 21:00, 03:00, 09:00 e 15:00 no horário de Brasília
+    - cron: '0 0,6,12,18 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Sincronizar Estrelas, Versões e Releases dos Ports
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node scripts/discover-ports.js --sync-meta
+
+      - name: Commit e Deploy Automático Direto na Main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain app.js)" ]; then
+            git add app.js
+            git commit -m "chore(auto): sincronizacao de estrelas e novas releases de ports [skip ci]"
+            git push origin main
+            echo "Alterações de metadados publicadas automaticamente com sucesso!"
+          else
+            echo "Nenhuma alteração de estrelas ou releases detectada neste ciclo."
+          fi

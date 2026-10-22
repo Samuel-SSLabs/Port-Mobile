@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 100" width="450" height="100" fill="none">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&amp;display=swap');
+      .title-port {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-weight: 800;
+        font-size: 36px;
+        fill: #FFFFFF;
+        letter-spacing: -0.02em;
+      }
+      .title-mobile {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-weight: 800;
+        font-size: 36px;
+        fill: #10b981;
+        letter-spacing: -0.02em;
+      }
+      .subtitle {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-weight: 600;
+        font-size: 12.5px;
+        fill: #94a3b8;
+        letter-spacing: 0.12em;
+      }
+    </style>
+  </defs>
+
+  <!-- Emblema Vetorial Oficial SSLabs PortMobile (Verde #10b981) -->
+  <g transform="translate(12, 10)">
+    <svg width="80" height="80" viewBox="0 0 324 324">
+      <g transform="matrix(0.1,0,0,-0.1,-663,942.91616)" fill="#10b981" stroke="none">
+        <path d="m 7292,8939 c -152,-19 -312,-82 -419,-163 -162,-122 -243,-307 -243,-548 1,-266 105,-436 345,-560 61,-31 149,-70 197,-87 180,-63 257,-103 276,-146 24,-52 -24,-106 -109,-124 -106,-23 -399,-6 -587,34 -40,8 -80,15 -88,15 -12,0 -14,-48 -14,-314 v -314 l 53,-12 c 216,-47 535,-64 737,-40 182,22 352,80 466,157 162,110 266,292 284,498 12,136 -3,212 -64,337 -92,191 -223,287 -594,433 -191,76 -229,112 -186,174 52,73 284,79 560,15 60,-14 119,-28 132,-31 l 22,-5 v 319 320 l -112,16 c -243,36 -502,46 -656,26 z" />
+        <path d="m 8972,8939 c -152,-19 -312,-82 -419,-163 -162,-122 -243,-307 -243,-548 1,-266 105,-436 345,-560 61,-31 149,-70 197,-87 180,-63 257,-103 276,-146 24,-52 -24,-106 -109,-124 -106,-23 -399,-6 -587,34 -40,8 -80,15 -88,15 -12,0 -14,-48 -14,-314 v -314 l 53,-12 c 216,-47 535,-64 737,-40 257,32 452,118 582,259 105,112 168,288 168,466 0,117 -14,177 -64,271 -101,194 -226,284 -594,429 -191,76 -229,112 -186,174 52,73 284,79 560,15 60,-14 119,-28 132,-31 l 22,-5 v 319 320 l -112,16 c -243,36 -502,46 -656,26 z" />
+      </g>
+    </svg>
+  </g>
+
+  <!-- Texto PortMobile -->
+  <text x="108" y="52" class="title-port">Port<tspan class="title-mobile">Mobile</tspan></text>
+
+  <!-- Subtítulo Oficial -->
+  <text x="110" y="74" class="subtitle">MOBILE PORTS HUB (ANDROID &amp; IOS)</text>
+</svg>

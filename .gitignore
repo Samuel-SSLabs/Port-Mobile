@@ -1,0 +1,39 @@
+# Backups locais de desenvolvimento obrigatórios
+backups/
+
+# Cloudflare Worker (mantido localmente fora do repositório)
+worker/
+.wrangler/
+.mf/
+
+# Caches temporários, dependências e compilação
+node_modules/
+dist/
+build/
+
+# Variáveis de ambiente e segredos locais
+.env
+.env.*
+!.env.example
+*.local
+
+# Logs e arquivos de depuração
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos do Sistema Operacional e IDEs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Arquivos de IA, Assistentes e Regras Locais de Bancada
+GEMINI.md
+.gemini/
+.agent/
+scratch/
+Saida/
